@@ -1,0 +1,25 @@
+<div class="container mt-5">
+
+                     <!-- Success message -->
+                     @if(Session::has('success'))
+                        <div class="alert alert-success">
+                           {{ Session::get('success') }}
+                        </div>
+                     @endif
+                     <!-- End of Success message -->
+
+                     <form method='post' action="{{ route('sheet.importdata') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                           <label for="file" class="form-label">File</label>
+                           <input type="file" class="form-control" id="file" name="file" value="">
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Import</button>
+                     </form>
+
+                  </div>
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+href={{ URL::asset('plugins/bootstrap/css/bootstrap.css'); }}
