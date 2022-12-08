@@ -23,10 +23,10 @@ class ImportSheet extends Controller
                 $redressementcommercial= (new importRT)->toArray($request->file('file')->store('temp'));
                 $ProjetBailleur= (new importPB)->toArray($request->file('file')->store('temp'));
             $datas=array();
-            $datas['redressementfinancier']=$redressementfinancier;
-            $datas['redressementtechnique']=$redressementtechnique;
-            $datas['redressementcommercial']=$redressementcommercial;
-            $datas['ProjetBailleurs']=$ProjetBailleur;
+            $datas[0]=$redressementfinancier;
+            $datas[1]=$redressementtechnique;
+            $datas[2]=$redressementcommercial;
+            $datas[3]=$ProjetBailleur;
 
             session()->push('data',$datas);
             dd($datas);
