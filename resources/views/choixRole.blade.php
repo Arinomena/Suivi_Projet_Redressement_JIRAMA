@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
     Choix du role
   </title>
@@ -21,14 +22,13 @@
   
 </head>
 
-<body class="g-sidenav-show  bg-gray-100" >
+<body class="g-sidenav-show  bg-gray-200" >
 <div class="min-height-300 bg-default position-absolute w-100"></div>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+        <img src={{ URL::asset('images/jirama.png'); }}/>
         <span class="ms-1 font-weight-bold">JIRAMA</span>
-      </a>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
@@ -99,18 +99,18 @@
       <div class="row mt-4">
 
         <div class="col-lg-5">
+
           <div class="card p-3">
             <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100">
               <span class="mask bg-gradient-dark"></span>
               <div class="card-body position-relative z-index-1 d-flex flex-column p-3">
                 <h5 class="text-white font-weight-bolder mb-4 pt-2">Choix du rôle:</h5>
-                <form enctype="multipart/form-data">
+                  <form method='post' action="{{ route('historique') }}" enctype="multipart/form-data">
                     @csrf
                     <select class="form-select form-select-lg mb-3" id="direction" name="direction">
-                        <option value="null">Direction</option>
-                        <option value="One">One</option>
-                        <option value="Two">Two</option>
-                        <option value="Three">Three</option>
+                      @foreach ($data['direction'] as $direction)
+                          <option value="{{ $direction->libelle }}">{{ $direction->libelle }}</option>
+                      @endforeach
                     </select>
 
                     <select class="form-select form-select-lg mb-3" id="role" name="role">
@@ -120,8 +120,15 @@
                         <option value="Three">Three</option>
                     </select>
 
-                    <button type="submit" class="btn btn-primary" id="appliquer">Appliquer</button>
-                </form>
+                    @if($data['role']!=null)
+                      <button class="btn btn-primary" name="appliquer">Appliquer</button>
+                    @else
+                      <p>Il existe déjà un role dans cette session</p>
+                    @endif
+
+                  </form>
+
+                    
               </div>
             </div>
           </div>
@@ -145,7 +152,11 @@
                                       @endif
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Importer</button>
+                                @if($data['role']!=null)
+                                  <p>Veuiller selectionner une direction et un poste avant d'importer un fichier</p>
+                                @else
+                                  <button type="submit" class="btn btn-primary">Importer</button>
+                                @endif
                             </form>
                         </div>
                     </div>  
@@ -160,19 +171,21 @@
             <div class="container">
                   <h5 class="text-black font-weight-bolder mb-4 pt-2">Historique prises de role :</h5>
                   <br>
-                  <table id="myTable" class="table align-items-center mb-0 table-striped table-warning">
+                  <table id="myTable" class="align-items-center mb-0 table-striped table-warning">
                     <thead>
                         <tr>
                           <th>Titre</th>
+                          <th>Direction</th>
                           <th>Role</th>
                           <th>Date de connexion</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                      @foreach ($historique as $historique)
+                      @foreach ($data['historique'] as $historique)
                         <tr>
                             <td>{{ $historique->username }}</td>
+                            <td>{{ $historique->direction }}</td>
                             <td>{{ $historique->role }}</td>
                             <td>{{ $historique->created_at }}</td>
                         </tr>

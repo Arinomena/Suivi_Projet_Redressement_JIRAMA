@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HistoriqueRole;
 use Illuminate\Http\Request;
+use App\Models\direction;
 
 class HistoriqueRoleController extends Controller
 {
@@ -45,8 +46,11 @@ class HistoriqueRoleController extends Controller
             ]);
             
             $historique= HistoriqueRole::all();
+            $direction= direction::all();
+            $data['historique']=$historique;
+            $data['direction']=$direction;
 
-            return $historique;
+            return View('choixRole', compact('data'));
 
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use App\Models\HistoriqueRole;
+use App\Models\direction;
 
 class LoginController extends Controller
 {
@@ -19,12 +20,18 @@ class LoginController extends Controller
 
         if(Adldap::auth()->attempt($login,$password,$bindAsUser=true)){
             $result=Adldap::search()->findBy('samaccountname',$login);
+            $role=null;
+            $data=[];
             $historique= HistoriqueRole::all();
-            session()->push('name',$result['name'][0]);
-            session()->push('mail',$result['mail'][0]);
-            session()->push('roleStatut','false');
+            $direction= direction::all();
+            $data['historique']=$historique;
+            session()->put('name',$result['name'][0]);
+            session()->put('mail',$result['mail'][0]);
+            session()->put('role',$role);
+            $data['role']=$role;
+            $data['direction']=$direction;
             
-            return View('choixRole',compact('historique'));
+            return View('choixRole',compact('data'));
         }
         else{
             return View('welcome')->with('Error','Une des informations communiqué est invalide');

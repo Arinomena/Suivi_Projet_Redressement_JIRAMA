@@ -19,7 +19,5 @@ class importRF implements WithMultipleSheets
         return[
             'Redressement financier' => new FirstSheetsImport(),
         ];
-    }
-
-    
+    }    
 }

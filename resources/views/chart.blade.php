@@ -108,6 +108,14 @@
     <!-- end of Navbar -->
 
     <div class="col-lg-12 col-md-12 mb-md-0 mb-4" >
+        <div class="card">
+            <div class="container" id="chartStat">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12 col-md-12 mb-md-0 mb-4" >
           <div class="card">
             <div class="container">
                   <h5 class="text-black font-weight-bolder mb-4 pt-2">Résumé des dernières entrées :</h5>
@@ -116,22 +124,22 @@
                   
                     <thead>
                         <tr>
-                          <th>Action</th>
                           <th>Situation actuelle</th>
                           <th>Budget</th>
                           <th>Dépense</th>
                           <th>Résultat attendu</th>
+                          <th>Date</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($data as $data)
                           <tr>
-                              <td><a href="{{ route('detail', [$data->Action]) }}">{{ $data->Action }}</a></td>
-                              <td>{{ $data->Situation_Actuelle }}</td>
-                              <td>{{ $data->Budget }} milliards ariary</td>
-                              <td>{{ $data->Depense }}</td>
-                              <td>{{ $data->Resultat_attendu }}</td>
+                              <td>{{ $data['Situation_actuelle'] }}</td>
+                              <td>{{ $data['Budget'] }} milliards ariary</td>
+                              <td>{{ $data['Depense'] }}</td>
+                              <td>{{ $data['Resultat_Attendu'] }}</td>
+                              <td>{{ $data['created_at'] }}</a></td>
                           </tr>
                         @endforeach
                     </tbody>
@@ -147,8 +155,10 @@
     <script>
       $(document).ready( function () {
           $('#resultTable').DataTable();
+
       } );
     </script>
+
 </body>
 </html>
     

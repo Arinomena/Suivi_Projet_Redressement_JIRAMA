@@ -81,9 +81,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid">
-          <form method="GET" action="{{ route('recherche') }}" enctype="multipart/form-data">
+          <form method="GET" enctype="multipart/form-data" action="{{ route('recherche') }}">
               @csrf
-              <select class="form-select form-select-lg mb-3" style="width:300px;" id="feuille" >
+              <select class="form-select form-select-lg mb-3" style="width:300px;" name="feuille" >
                   <option value="RedressementFinancier">Redressement financier</option>
                   <option value="RedressementTechnique">Redressement technique</option>
                   <option value="RedressementCommercial">Redressement commercial</option>
@@ -107,48 +107,6 @@
     </nav>
     <!-- end of Navbar -->
 
-    <div class="col-lg-12 col-md-12 mb-md-0 mb-4" >
-          <div class="card">
-            <div class="container">
-                  <h5 class="text-black font-weight-bolder mb-4 pt-2">Résumé des dernières entrées :</h5>
-                  <br>
-                  <table id="resultTable" class="align-items-center mb-0 table-striped table-warning" >
-                  
-                    <thead>
-                        <tr>
-                          <th>Action</th>
-                          <th>Situation actuelle</th>
-                          <th>Budget</th>
-                          <th>Dépense</th>
-                          <th>Résultat attendu</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach ($data as $data)
-                          <tr>
-                              <td><a href="{{ route('detail', [$data->Action]) }}">{{ $data->Action }}</a></td>
-                              <td>{{ $data->Situation_Actuelle }}</td>
-                              <td>{{ $data->Budget }} milliards ariary</td>
-                              <td>{{ $data->Depense }}</td>
-                              <td>{{ $data->Resultat_attendu }}</td>
-                          </tr>
-                        @endforeach
-                    </tbody>
-                  </table>
-            </div>
-          </div>
-        </div>
-
-    
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-    <script src={{ URL::asset('js\script.js'); }}></script>
-    <script>
-      $(document).ready( function () {
-          $('#resultTable').DataTable();
-      } );
-    </script>
 </body>
 </html>
     
