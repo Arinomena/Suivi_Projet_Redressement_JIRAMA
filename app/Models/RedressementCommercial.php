@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RedressementCommercial extends Model
 {
     use HasFactory;
-    protected $fillable=["Employee","Action","Situation_Actuell","Budget","Unite","Pourcentage_avancement","Depense","Fin2022","Juin2022","Fin2023","Resultat_Attendu"];
+    protected $fillable=["Employee","Action","Situation_actuelle","Budget","Unite","Pourcentage_avancement","Depense","Fin2022","Juin2022","Fin2023","Resultat_Attendu"];
 
 }

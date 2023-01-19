@@ -107,12 +107,7 @@
     </nav>
     <!-- end of Navbar -->
 
-    <div class="col-lg-12 col-md-12 mb-md-0 mb-4" >
-        <div class="card">
-            <div class="container" id="chartStat">
-            </div>
-        </div>
-    </div>
+    <canvas id="myChart12" height="100px"></canvas>
 
 
     <div class="col-lg-12 col-md-12 mb-md-0 mb-4" >
@@ -120,7 +115,7 @@
             <div class="container">
                   <h5 class="text-black font-weight-bolder mb-4 pt-2">Résumé des dernières entrées :</h5>
                   <br>
-                  <table id="resultTable" class="align-items-center mb-0 table-striped table-warning" >
+                  <table id="resultTable" class="table align-items-center mb-0 table-striped table-warning" >
                   
                     <thead>
                         <tr>
@@ -136,7 +131,7 @@
                         @foreach ($data as $data)
                           <tr>
                               <td>{{ $data['Situation_actuelle'] }}</td>
-                              <td>{{ $data['Budget'] }} milliards ariary</td>
+                              <td>{{ $data['Budget'] }} millions ariary</td>
                               <td>{{ $data['Depense'] }}</td>
                               <td>{{ $data['Resultat_Attendu'] }}</td>
                               <td>{{ $data['created_at'] }}</a></td>
@@ -149,17 +144,37 @@
         </div>
 
     
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-    <script src={{ URL::asset('js\script.js'); }}></script>
-    <script>
-      $(document).ready( function () {
-          $('#resultTable').DataTable();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-      } );
-    </script>
+<script type="text/javascript">
+    // Example data for the chart
+    var labels = {{ Js::from($label) }};
+    var donnee =  {{ Js::from($tab) }};
+    var data = {
+        labels: labels,
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data:  donnee,
+        }]
+    };
+
+    // Get the canvas element using its id
+    var ctx = $("#myChart12");
+
+    // Create the chart using Chart.js
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {}
+    });
+</script>
 
 </body>
+
 </html>
     
+
 

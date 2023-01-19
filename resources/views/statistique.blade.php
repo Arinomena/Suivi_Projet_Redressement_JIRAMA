@@ -129,7 +129,7 @@
                           <tr>
                               <td><a href="{{ route('detail', [$data->Action]) }}">{{ $data->Action }}</a></td>
                               <td>{{ $data->Situation_Actuelle }}</td>
-                              <td>{{ $data->Budget }} milliards ariary</td>
+                              <td>{{ $data->Budget }} millions ariary</td>
                               <td>{{ $data->Depense }}</td>
                               <td>{{ $data->Resultat_attendu }}</td>
                           </tr>
